@@ -1,0 +1,190 @@
+%%% Tento soubor obsahuje definice různých užitečných maker a prostředí %%%
+%%% Další makra připisujte sem, ať nepřekáží v ostatních souborech.     %%%
+
+\usepackage[a-2u]{pdfx}     % výsledné PDF bude ve standardu PDF/A-2u
+\usepackage[top=25mm,bottom=25mm,right=25mm,left=30mm,head=12.5mm,foot=12.5mm]{geometry}
+\let\openright=\cleardoublepage
+ 
+%%% Nastavení pro použití samostatné bibliografické databáze.
+\usepackage[
+   autocite = superscript,
+   backend  = biber,
+   style    = iso-numeric,
+   language = czech,
+   sorting  = nty,
+   bibencoding = UTF8
+]{biblatex}
+\addbibresource{law.bib}
+\addbibresource{literatura.bib}
+
+\DeclareCiteCommand{\supercite}[\mkbibsuperscript]
+  {\iffieldundef{prenote}
+     {}
+     {\BibliographyWarning{Ignoring prenote argument}}%
+   \iffieldundef{postnote}
+     {}
+     {\BibliographyWarning{Ignoring postnote argument}}}
+  {\usebibmacro{citeindex}%
+   \bibopenbracket\usebibmacro{cite}\bibclosebracket}
+  {\supercitedelim}
+  {}
+  
+\let\cite\supercite
+
+\usepackage[justification=centering]{caption} % or e.g. [format=hang]
+
+\usepackage{chngcntr}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
+%% TODOs
+\setlength{\marginparwidth}{2cm}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+%% Přepneme na českou sazbu, fonty Latin Modern a kódování češtiny
+\usepackage[czech]{babel}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+
+%%% Další užitečné balíčky (jsou součástí běžných distribucí LaTeXu)
+\usepackage{amsmath}        % rozšíření pro sazbu matematiky
+\usepackage{amsfonts}       % matematické fonty
+\usepackage{amsthm}         % sazba vět, definic apod.
+\usepackage{bm}             % tučné symboly (příkaz \bm)
+\usepackage{graphicx}       % vkládání obrázků
+\usepackage{fancyvrb}       % vylepšené prostředí pro strojové písmo
+\usepackage{fancyhdr}       % prostředí pohodlnější nastavení hlavy a paty stránek
+\usepackage{icomma}         % inteligetní čárka v matematickém módu
+\usepackage{dcolumn}        % lepší zarovnání sloupců v tabulkách
+\usepackage{booktabs}       % lepší vodorovné linky v tabulkách
+\makeatletter
+\@ifpackageloaded{xcolor}{
+   \@ifpackagewith{xcolor}{usenames}{}{\PassOptionsToPackage{usenames}{xcolor}}
+  }{\usepackage[usenames]{xcolor}} % barevná sazba
+\makeatother
+\usepackage{multicol}       % práce s více sloupci na stránce
+\usepackage{caption}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt, partopsep=0pt}
+\setlist[enumerate]{noitemsep, topsep=0pt, partopsep=0pt}
+\setlist[description]{noitemsep, topsep=0pt, partopsep=0pt}
+
+\usepackage{float}
+\usepackage{numprint}
+
+\usepackage[acronym,nopostdot,toc]{glossaries}
+\usepackage[bottom]{footmisc}
+
+\usepackage{tabu}
+\usepackage{longtable}
+
+\usepackage{pdfpages}
+\usepackage{tocloft}
+
+\setlength\cftparskip{0pt}
+\setlength\cftbeforechapskip{1.5ex}
+\setlength\cftfigindent{0pt}
+\setlength\cfttabindent{0pt}
+\setlength\cftbeforeloftitleskip{0pt}
+\setlength\cftbeforelottitleskip{0pt}
+\setlength\cftbeforetoctitleskip{0pt}
+\renewcommand{\cftlottitlefont}{\Huge\bfseries\sffamily}
+\renewcommand{\cftloftitlefont}{\Huge\bfseries\sffamily}
+\renewcommand{\cfttoctitlefont}{\Huge\bfseries\sffamily}
+
+% vyznaceni odstavcu
+\parindent=0pt
+\parskip=11pt
+
+% zakaz vdov a sirotku - jednoradkovych pocatku ci koncu odstavcu na prechodu mezi strankami
+\clubpenalty=1000
+\widowpenalty=1000
+\displaywidowpenalty=1000
+
+% nastaveni radkovani
+\renewcommand{\baselinestretch}{1.20}
+
+% nastaveni pro nadpisy - tucne a bezpatkove
+\usepackage{sectsty}    
+\allsectionsfont{\sffamily}
+
+% nastavení hlavy a paty stránek
+\fancyhf{}
+\fancyhead[R]{\rightmark}
+\fancyfoot[R]{\thepage}
+\renewcommand{\footrulewidth}{.5pt}
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.5pt}}
+
+% Tato makra přesvědčují mírně ošklivým trikem LaTeX, aby hlavičky kapitol
+% sázel příčetněji a nevynechával nad nimi spoustu místa. Směle ignorujte.
+\makeatletter
+\def\@makechapterhead#1{
+  {\parindent \z@ \raggedright \sffamily
+   \Huge\bfseries \thechapter. #1
+   \par\nobreak
+   \vskip 20\p@
+}}
+\def\@makeschapterhead#1{
+  {\parindent \z@ \raggedright \sffamily
+   \Huge\bfseries #1
+   \par\nobreak
+   \vskip 20\p@
+}}
+\makeatother
+
+% aquote pro blokovou citaci s autorem vpravo dole
+\def\signed #1{{\leavevmode\unskip\nobreak\hfil\penalty50\hskip2em
+  \hbox{}\nobreak\hfil(#1)%
+  \parfillskip=0pt \finalhyphendemerits=0 \endgraf}}
+
+\newsavebox\mybox
+\newenvironment{aquote}[1]
+  {\savebox\mybox{#1}\begin{quote}}
+  {\signed{\usebox\mybox}\end{quote}}
+
+% Trochu volnější nastavení dělení slov, než je default.
+\lefthyphenmin=2
+\righthyphenmin=2
+
+% Zapne černé "slimáky" na koncích řádků, které přetekly, abychom si
+% jich lépe všimli.
+\overfullrule=1mm
+
+%% Balíček hyperref, kterým jdou vyrábět klikací odkazy v PDF,
+%% ale hlavně ho používáme k uložení metadat do PDF (včetně obsahu).
+%% Většinu nastavítek přednastaví balíček pdfx.
+\hypersetup{unicode}
+\hypersetup{breaklinks=true}
+\hypersetup{hidelinks}
+
+%%% Prostředí pro sazbu kódu, případně vstupu/výstupu počítačových
+%%% programů. (Vyžaduje balíček fancyvrb -- fancy verbatim.)
+
+\DefineVerbatimEnvironment{code}{Verbatim}{fontsize=\small, frame=single}
+
+
+%%% Useful law-related macros
+\usepackage{pgfkeys}
+\pgfkeys{
+    /paragraph/.is family, /paragraph,
+    default/.style = {z = 90, rok = 2012, odst = 0},
+    z/.estore in = \paragraphZakon,
+    rok/.estore in = \paragraphRok,
+    odst/.estore in = \paragraphOdst,
+}
+
+\newcommand{\lawp}[2][]{
+    \pgfkeys{/paragraph, default, #1}%
+    \ifthenelse{\paragraphOdst =0}{%
+        \href{https://www.zakonyprolidi.cz/cs/\paragraphRok-\paragraphZakon\#p#2}
+        {\textbf{§~#2 zákona č. \paragraphZakon/\paragraphRok~Sb.}}\cite{\paragraphZakon/\paragraphRok p#2}}{%
+        \href{https://www.zakonyprolidi.cz/cs/\paragraphRok-\paragraphZakon\#p#2-\paragraphOdst}
+        {\textbf{§~#2 odst. \paragraphOdst~zákona č. \paragraphZakon/\paragraphRok~Sb.}}\cite{\paragraphZakon/\paragraphRok p#2-\paragraphOdst}}%
+}

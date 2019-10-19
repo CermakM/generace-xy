@@ -1,0 +1,136 @@
+%% Verze pro jednostranný tisk:
+%\documentclass[11pt,a4paper]{report}
+%\usepackage[top=25mm,bottom=25mm,right=25mm,left=30mm,head=12.5mm,foot=12.5mm]{geometry}
+%\let\openright=\clearpage
+
+%% Pokud tiskneme oboustranně:
+\documentclass[11pt,a4paper,openany]{report}
+
+%% - - - - - - - - - - - - - - - - - - - -  %%
+ 
+\setlength{\arrayrulewidth}{0.5mm}
+\setlength{\tabcolsep}{18pt}
+\renewcommand{\arraystretch}{2.5}
+
+\usepackage{makecell}
+
+\renewcommand\theadalign{bc}
+\renewcommand\theadfont{\bfseries}
+\renewcommand\theadgape{\Gape[4pt]}
+\renewcommand\cellgape{\Gape[4pt]}
+
+%% - - - - - - - - - - - - - - - - - - - -  %%
+
+%% Definice různých užitečných maker (viz popis uvnitř souboru)
+\input{makra}
+
+%%% Údaje o práci
+% Název práce v jazyce práce (přesně podle zadání)
+\def\NazevPrace{Generace X vs. Generace Y --- jak se chovají jako zákazníci?}
+
+% Typ práce
+\def\TypPrace{SEMINÁRNÍ PRÁCE}
+%\def\TypPrace{DIPLOMOVÁ PRÁCE}
+
+
+% Jméno autora
+\def\AutorPrace{Bc. Marek Čermák}
+
+% Rok odevzdání. měsíc (slovně)
+\def\DatumOdevzdani{Listopad 2019}
+
+% Vedoucí práce: Jméno a příjmení s~tituly
+\def\Vedouci{Mgr. Tomáš Zdražil}
+
+% Studijní program a obor
+% \def\StudijniProgram{studijní program}
+% \def\StudijniObor{studijní obor}
+
+% Text čestného prohlášení pro MUŽE pro tuto prácí
+\def\Prohlaseni{Prohlašuji, že jsem tuto práci \textit{\NazevPrace} vypracoval samostatně za použití v práci uvedených pramenů a literatury.}
+% Text čestného prohlášení pro MUŽE pro bakalářskou prácí
+% \def\Prohlaseni{Prohlašuji, že jsem bakalářskou práci \textit{\NazevPrace} vypracoval samostatně za použití v práci uvedených pramenů a literatury.}
+% Text čestného prohlášení pro MUŽE pro diplomovou prácí
+%\def\Prohlaseni{Prohlašuji, že jsem diplomovou práci \textit{\NazevPrace} vypracoval samostatně za použití v práci uvedených pramenů a literatury.}
+% Text čestného prohlášení pro ŽENY pro bakalářskou prácí
+%\def\Prohlaseni{Prohlašuji, že jsem bakalářskou práci \textit{\NazevPrace} vypracovala samostatně za použití v práci uvedených pramenů a literatury.}
+% Text čestného prohlášení pro ŽENY pro diplomovou prácí
+%\def\Prohlaseni{Prohlašuji, že jsem diplomovou práci \textit{\NazevPrace} vypracovala samostatně za použití v práci uvedených pramenů a literatury.}
+
+% Nepovinné poděkování (vedoucímu práce, konzultantovi, tomu, kdo
+% zapůjčil software, literaturu apod.)
+\def\Podekovani{%
+Poděkování.
+}
+
+% Abstrakt (doporučený rozsah cca 150-250 slov; nejedná se o zadání práce)
+\def\Abstrakt{%
+Abstrakt.
+}
+\def\AbstraktEN{%
+Abstract.
+}
+
+% 3 až 5 klíčových slov (doporučeno)
+\def\KlicovaSlova{klíčové slovo, další pojem, jiný důležitý termín, a ještě jeden}
+\def\KlicovaSlovaEN{keyword, important term, another topic, and another one}
+
+%% - - - - - - - - - - - - - - - - - - - -  %%
+
+%% Zkratky
+\makeglossaries
+\newglossaryentry{noz}{type=\acronymtype, name=\makebox[2.5cm][l]{NOZ},      text={NOZ},      description=Občanský zákoník}
+\newglossaryentry{zok}{type=\acronymtype, name=\makebox[2.5cm][l]{ZOK},      text={ZOK},      description=Zákon o obchodních společnostech a družstvech}
+\newglossaryentry{ss} {type=\acronymtype, name=\makebox[2.5cm][l]{SS},       text={SS},       description=Společenská smlouva}
+\newglossaryentry{vos}{type=\acronymtype, name=\makebox[2.5cm][l]{v. o. s.}, text={v. o. s.}, description=Veřejná obchodní společnost}
+\newglossaryentry{sro}{type=\acronymtype, name=\makebox[2.5cm][l]{s. r. o},  text={s. r. o},  description=Společnost s ručením omezeným}
+\newglossaryentry{ks} {type=\acronymtype, name=\makebox[2.5cm][l]{k. s.},    text={k. s.},    description=Komanditní společnost}
+\newglossaryentry{as} {type=\acronymtype, name=\makebox[2.5cm][l]{a. s.},    text={a. s.},    description=Akciová společnost}
+
+%% - - - - - - - - - - - - - - - - - - - -  %%
+
+\begin{document}
+
+%% Titulní strana a různé povinné informační strany
+\include{zacatek}
+
+%%% Strana s automaticky generovaným obsahem bakalářské práce
+\tableofcontents
+\thispagestyle{empty}
+
+%% Obrázky v bakalářské práci
+% \openright
+% \listoffigures
+
+%%% Tabulky v bakalářské práci (opět nemusí být nutné uvádět)
+\clearpage
+\listoftables
+
+%%% Použité zkratky v bakalářské práci (opět nemusí být nutné uvádět)
+\setlength{\glsdescwidth}{0.7\textwidth}
+\printglossary[type=\acronymtype, style=index, title=Seznam použitých zkratek]
+
+\pagestyle{fancy}
+\setcounter{tocdepth}{2}
+
+%%% Jednotlivé kapitoly práce jsou pro přehlednost uloženy v samostatných souborech
+\include{chapters/uvod}
+
+\include{chapters/01}
+% \include{chapters/02}
+% \include{chapters/03}
+% \include{chapters/04}
+% \include{chapters/05}
+
+\include{chapters/zaver}
+
+%%% Seznam použité literatury
+\include{literatura}
+
+%%% Přílohy k bakalářské práci, existují-li. Každá příloha musí být alespoň jednou
+%%% odkazována z vlastního textu práce. Přílohy se číslují.
+% \part*{Přílohy}
+% \appendix
+% \include{app01}
+
+\end{document}
